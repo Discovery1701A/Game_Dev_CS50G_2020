@@ -98,8 +98,10 @@ function love.update(dt)
     end
     if ball.x+ball.width < 0 then
         serveringPlayer = 1
-        player2Score = player2Score + 1
-        sound['score']:play()
+        if gameState == 'play' then
+            player2Score = player2Score + 1
+            sound['score']:play()
+        end
         if player2Score == 10 then
             winningPlayer = 2
             gameState = 'done'
@@ -107,13 +109,16 @@ function love.update(dt)
         gameState = 'serve'
         ball:reset()
         end
-    end
-    if ball.x > VIRTUAL_WIDTH then
+    
+    elseif ball.x > VIRTUAL_WIDTH then
         serveringPlayer = 2
-        player1Score = player1Score + 1
-        sound['score']:play()
-        if player2Score == 10 then
-            winningPlayer = 2
+        if gameState == 'play' then
+            
+            player1Score = player1Score + 1
+            sound['score']:play()
+        end
+        if player1Score == 10 then
+            winningPlayer = 1
             gameState = 'done'
         else
         gameState = 'serve'
@@ -202,9 +207,6 @@ function love.keypressed(key)
             gameState = 'play'
             --ball:reset()
         elseif gameState == 'done' then
-            gameState = 'serve'
-
-            ball:reset()
             player1Score = 0
             player2Score = 0
 
@@ -212,7 +214,14 @@ function love.keypressed(key)
                 servingPlayer = 2
             else
                 servingPlayer = 1
+                
             end
+            ball:reset()
+            gameState = 'serve'
+
+            
+            
+            
         end
 
     end
