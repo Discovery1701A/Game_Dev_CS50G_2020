@@ -37,18 +37,7 @@ function love.load()
 end
 
 function love.update(dt)
-    if ball.x+ball.width < 0 then
-        serveringPlayer = 1
-        player2Score = player2Score + 1
-        ball:reset()
-        gameState = 'serve'
-    end
-    if ball.x > VIRTUAL_WIDTH then
-        serveringPlayer = 2
-        player1Score = player1Score + 1
-        ball:reset()
-        gameState = 'serve'
-    end
+   
     if gameState == 'serve' then
         ball.dy = math.random(-50,50)
         if serveringPlayer == 1 then
@@ -92,7 +81,28 @@ function love.update(dt)
    
         ball:update(dt)
     end
-    
+    if ball.x+ball.width < 0 then
+        serveringPlayer = 1
+        player2Score = player2Score + 1
+        if player2Score == 10 then
+            winningPlayer = 2
+            gameState = 'done'
+        else
+        gameState = 'serve'
+        ball:reset()
+        end
+    end
+    if ball.x > VIRTUAL_WIDTH then
+        serveringPlayer = 2
+        player1Score = player1Score + 1
+        if player2Score == 10 then
+            winningPlayer = 2
+            gameState = 'done'
+        else
+        gameState = 'serve'
+        ball:reset()
+        end
+    end
     if love.keyboard.isDown('w') then
         player1.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('s') then
@@ -125,8 +135,13 @@ function love.keypressed(key)
             gameState = 'serve'
         elseif gameState == 'serve' then
             gameState = 'play'
+            --ball:reset()
+        elseif gameState == 'done' then
+            gameState = 'serve'
+
             ball:reset()
         end
+
     end
 end
 
