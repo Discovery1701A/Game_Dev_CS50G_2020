@@ -120,21 +120,62 @@ function love.update(dt)
         ball:reset()
         end
     end
-    if love.keyboard.isDown('w') then
-        player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
-        player1.dy = PADDLE_SPEED
-    else 
-        player1.dy = 0
+    --if love.keyboard.isDown('w') then
+        --player1.dy = -PADDLE_SPEED
+   -- elseif love.keyboard.isDown('s') then
+        --player1.dy = PADDLE_SPEED
+    --else 
+        --player1.dy = 0
     
-    end
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
+    --end
+    
+    --if love.keyboard.isDown('up') then
+        --player2.dy = -PADDLE_SPEED
+    --elseif love.keyboard.isDown('down') then
+       -- player2.dy = PADDLE_SPEED
+   -- else
+       -- player2.dy = 0
+    --end
+    if player == 1 or player == 0 then
+        if ball.dx > 0 then
+            if ball.y < player2.y then
+                player2.dy = -PADDLE_SPEED
+            elseif ball.y > player2.y + player2.height then
+                player2.dy = PADDLE_SPEED
+            else
+                player2.dy = 0
+            end
+        end
     else
-        player2.dy = 0
+        if love.keyboard.isDown('up') then
+            player2.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('down') then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
     end
+    if player == 0 then
+        if ball.dx < 0 then
+            if ball.y < player1.y then
+                player1.dy = -PADDLE_SPEED
+            elseif ball.y > player1.y + player1.height then
+                player1.dy = PADDLE_SPEED
+            else
+                player1.dy = 0
+            end
+        end
+    else
+        if love.keyboard.isDown('w') then
+            player1.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('s') then
+            player1.dy = PADDLE_SPEED
+        else 
+            player1.dy = 0
+        
+        end
+    end
+
     player1:update(dt)
     player2:update(dt)
 
@@ -145,6 +186,13 @@ end
 
 
 function love.keypressed(key)
+    if key == '1'then
+        player = 1
+    elseif key == '2' then
+        player = 2
+    elseif key == '0' then
+        player = 0
+    end
     if key == 'escape' then
         love.event.quit()
     elseif key == 'enter' or key == 'return' then
