@@ -1,5 +1,6 @@
 push = require 'push'
-
+Class = require 'class'
+require 'Bird'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -28,6 +29,7 @@ function love.load()
         resizable = true,
         vsync = true
     })
+    bird = Bird()
 end
 function love.keypressed(key)
     if key == 'escape' then
@@ -49,5 +51,6 @@ function love.draw()
     push:start()
     love.graphics.draw(background, -backgroundScroll, 0)
     love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - 16)
+bird:render()
     push:finish()
 end
