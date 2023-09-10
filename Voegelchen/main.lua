@@ -8,6 +8,7 @@ require 'StateMachine'
 require 'states/BaseState'
 require 'states/PlayState'
 require 'states/TitleScreenState'
+require 'states/ScoreState'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -27,12 +28,6 @@ local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
 local GROUND_LOOPING_POINT = 514
 
-local bird = Bird()
-local pipePairs = {}
-local spawnTimer = 0
-local lastY = -PIPE_HEIGHT + math.random(80) + 20
-
-local scrolling = true
 
 function love.load()
 
@@ -54,7 +49,8 @@ function love.load()
     
     gStateMachine = StateMachine{
         ['title'] = function() return TitleScreenState() end,
-        ['play'] = function() return PlayState() end
+        ['play'] = function() return PlayState() end,
+        ['score'] = function() return ScoreState() end
     }
     gStateMachine:change('title')
 
@@ -84,7 +80,7 @@ function love.update(dt)
             % BACKGROUND_LOOPING_POINT
         groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt)
             % GROUND_LOOPING_POINT
-            
+
         gStateMachine:update(dt)
         love.keyboard.keysPressed = {}
 
