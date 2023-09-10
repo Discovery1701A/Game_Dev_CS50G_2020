@@ -12,7 +12,15 @@ end
 function Bird:render()
     love.graphics.draw(self.image, self.x, self.y)
 end
-
+function Bird:collides(pipe)
+    -- 2 und 4 sind die offsets damit die collision nicht zu genau ist
+    if (self.x + 2) + (self.width - 4) >= pipe.x and self.x + 2 <= pipe.x + PIPE_WIDTH then
+        if self.y + 2 <= pipe.y + PIPE_HEIGHT and self.y + self.height - 2 >= pipe.y then
+            return true
+        end
+    end
+    return false
+end
 function Bird:update(dt)
     if love.keyboard.wasPressed('space') then
         self.dy = -5
