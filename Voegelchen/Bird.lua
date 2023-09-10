@@ -26,6 +26,7 @@ end
 function Bird:update(dt)
     if love.keyboard.wasPressed('space') then
         self.dy = -5
+        sounds['jump']:play()
     end
         self.dy = self.dy + GRAVITY*dt
    
