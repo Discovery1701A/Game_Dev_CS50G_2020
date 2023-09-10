@@ -14,6 +14,8 @@ function Bird:render()
 end
 function Bird:collides(pipe)
     -- 2 und 4 sind die offsets damit die collision nicht zu genau ist
+    -- damit es nicht zu schwer ist
+    -- 2 verschibt die ganze box des wegen 4 um das ganze zu kompensieren
     if (self.x + 2) + (self.width - 4) >= pipe.x and self.x + 2 <= pipe.x + PIPE_WIDTH then
         if self.y + 2 <= pipe.y + PIPE_HEIGHT and self.y + self.height - 2 >= pipe.y then
             return true
