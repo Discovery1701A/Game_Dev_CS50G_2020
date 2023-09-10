@@ -84,7 +84,11 @@ function love.draw()
     push:start()
     --love.graphics.printf(tostring(bird.dy), 0, 10, VIRTUAL_WIDTH, 'center')
     love.graphics.draw(background, -backgroundScroll, 0)
+    for k, pipe in pairs(pipes) do
+        pipe:render()
+    end
     love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - 16)
 bird:render()
+
     push:finish()
 end
