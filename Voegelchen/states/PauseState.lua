@@ -27,7 +27,7 @@ function PauseState:render()
         pair:render()
     end
     love.graphics.setFont(flappyFont)
-    love.graphics.print('Score: ' .. tostring(self.score).. tostring(self.timer), 8, 8)
+    love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
     self.bird:render()
 
     love.graphics.setFont(flappyFont)

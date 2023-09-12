@@ -3,28 +3,9 @@ PIPE_HEIGHT =288
 PIPE_WIDTH = 70
 PIPE_SPEED = 60
 GAP_HEIGHT = 90
-function PlayState:init()
-    if self.pipePairs == nil then
-    self.bird = Bird()
-    self.pipePairs = {}
-    self.timer = 0
-    self.nextTime = 2
-    self.score = 0
-    self.lastY = -PIPE_HEIGHT + math.random(80) + 20
-    --self.pause = false
-    end
-end
+
 function PlayState:enter(params)
-   -- self.pause = false
-    --if not params == nil then
-       -- for k, param in params do
-           -- if not param == nil then
-           --     self.pause = true
-          --  else
-            --    self.pause = false
-          --  end
-       -- end
-   -- end
+   
     if  params == nil then
         self.score = 0
         self.bird = Bird()
@@ -107,6 +88,6 @@ function PlayState:render()
         pair:render()
     end
     love.graphics.setFont(flappyFont)
-    love.graphics.print('Score: ' .. tostring(self.score).. tostring(self.timer) , 8, 8)
+    love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
     self.bird:render()
 end
