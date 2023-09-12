@@ -4,21 +4,54 @@ PIPE_WIDTH = 70
 PIPE_SPEED = 60
 GAP_HEIGHT = 90
 function PlayState:init()
+    if self.pipePairs == nil then
     self.bird = Bird()
     self.pipePairs = {}
     self.timer = 0
+    self.nextTime = 2
     self.score = 0
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
+    --self.pause = false
+    end
 end
+function PlayState:enter(params)
+   -- self.pause = false
+    --if not params == nil then
+       -- for k, param in params do
+           -- if not param == nil then
+           --     self.pause = true
+          --  else
+            --    self.pause = false
+          --  end
+       -- end
+   -- end
+    if  params == nil then
+        self.score = 0
+        self.bird = Bird()
+        self.pipePairs = {}
+        self.timer = 0
+        self.nextTime = 2
+        self.lastY = -PIPE_HEIGHT + math.random(80) + 20 
+    else
+       
+        self.score = params.score
+            self.bird = params.bird
+            self.pipePairs = params.pipePairs
+            self.timer = params.timer
+            self.lastY = params.lastY
+            self.nextTime = params.nextTime
+    end
 
+end
 function PlayState:update(dt) 
+    
     self.timer = self.timer + dt
-            if self.timer > 2 then
+            if self.timer > self.nextTime then
                 local y = math.max(-PIPE_HEIGHT + 10,
                     math.min(self.lastY + math.random(-20, 20), VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT))
                     self.lastY = y
                     table.insert(self.pipePairs, PipePair(y))
-                
+                self.nextTime = math.random(2, 5)
                 self.timer = 0
             end
 
@@ -57,6 +90,16 @@ function PlayState:update(dt)
                 score = self.score
             })
         end
+        if love.keyboard.wasPressed('p') then
+            gStateMachine:change('pause', {
+                bird = self.bird,
+                pipePairs = self.pipePairs,
+                timer = self.timer,
+                nextTime = self.nextTime,
+                score = self.score,
+                lastY = self.lastY
+            })
+        end
     end
 
 function PlayState:render()
@@ -64,6 +107,6 @@ function PlayState:render()
         pair:render()
     end
     love.graphics.setFont(flappyFont)
-    love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
+    love.graphics.print('Score: ' .. tostring(self.score).. tostring(self.timer) , 8, 8)
     self.bird:render()
 end

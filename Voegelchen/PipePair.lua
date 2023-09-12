@@ -1,15 +1,16 @@
 PipePair = Class{}
 
 -- zwischenraum zwischen den pipes
-local GAP_HEIGHT = 90
+--local GAP_HEIGHT = math.random(10, 120)
 
 function PipePair:init(y)
     self.x = VIRTUAL_WIDTH + 32
     self.y = y
+    self.gap_Height= math.random(80, 140)
 
     self.pipes = {
         ['upper'] = Pipe('top', self.y),
-        ['lower'] = Pipe('bottom', self.y + PIPE_HEIGHT + GAP_HEIGHT)
+        ['lower'] = Pipe('bottom', self.y + PIPE_HEIGHT + self.gap_Height)
     }
     self.remove = false
     self.scored = false

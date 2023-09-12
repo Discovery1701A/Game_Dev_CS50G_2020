@@ -10,6 +10,7 @@ require 'states/PlayState'
 require 'states/TitleScreenState'
 require 'states/ScoreState'
 require 'states/CountdownState'
+require 'states/PauseState'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -29,7 +30,7 @@ local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
 local GROUND_LOOPING_POINT = 514
 
-
+local scrolling = true
 function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -59,11 +60,13 @@ function love.load()
         ['title'] = function() return TitleScreenState() end,
         ['countdown'] = function() return CountdownState() end,
         ['play'] = function() return PlayState() end,
+        ['pause'] = function() return PauseState() end,
         ['score'] = function() return ScoreState() end
     }
     gStateMachine:change('title')
 
     love.keyboard.keysPressed = {}
+    love.mouse.buttonsPressed = {}
 end
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
@@ -79,19 +82,27 @@ function love.keyboard.wasPressed(key)
     end
 end
 
+function love.mousepressed(x,y,button)
+    love.mouse.buttonsPressed[button] = true
+end
+function love.mouse.wasPressed(button)
+    return love.mouse.buttonsPressed[button]
+end
+
 function love.resize(w,h)
     push:resize(w,h)
 end
 
 function love.update(dt)
-
+    if scrolling then
     backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt)
             % BACKGROUND_LOOPING_POINT
         groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt)
             % GROUND_LOOPING_POINT
-
+    end
         gStateMachine:update(dt)
         love.keyboard.keysPressed = {}
+        love.mouse.buttonsPressed = {}
 
         
             
