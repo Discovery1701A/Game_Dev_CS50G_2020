@@ -1,6 +1,6 @@
 PauseState = Class{__includes = BaseState}
 function PauseState:enter(params)
-        self.score = params.score +10
+        self.score = params.score
         self.bird = params.bird
         self.pipePairs = params.pipePairs
         self.timer = params.timer

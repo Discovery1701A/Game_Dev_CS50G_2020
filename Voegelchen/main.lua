@@ -94,6 +94,13 @@ function love.resize(w,h)
 end
 
 function love.update(dt)
+    if gStateMachine.current.name == 'pause' then
+        sounds['music']:pause()
+        scrolling = false
+        else
+            sounds['music']:play()
+            scrolling = true
+    end
     if scrolling then
     backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt)
             % BACKGROUND_LOOPING_POINT

@@ -15,6 +15,7 @@ function StateMachine:change(stateName, enterParams)
     self.current:exit()
     self.current = self.states[stateName]()
     self.current:enter(enterParams)
+    self.current.name = stateName
 end
 
 function StateMachine:update(dt)
