@@ -7,7 +7,7 @@ require 'src/states/StartState'
 
 
 
-require 'src/states/PlayState'
-require 'src/states/GameOverState'
-require 'src/states/HighScoreState'
-require 'src/states/EnterHighScoreState'
+--require 'src/states/PlayState'
+--require 'src/states/GameOverState'
+--require 'src/states/HighScoreState'
+--require 'src/states/EnterHighScoreState'
