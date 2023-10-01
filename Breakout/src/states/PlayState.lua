@@ -29,6 +29,8 @@ function PlayState:update(dt)
     if self.ball:collides(self.paddle) then
         self.ball.dy = -self.ball.dy
         self.ball.y = self.paddle.y - 8
+
+        -- seiten kollision
         if self.ball.x < self.paddle.x + (self.paddle.width / 2) and self.paddle.dx < 0 then
             self.ball.dx = -50 + -(8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x))
         elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) and self.paddle.dx > 0 then
@@ -40,16 +42,17 @@ function PlayState:update(dt)
     for k, brick in pairs(self.bricks) do
         if brick.inPlay and self.ball:collides(brick) then
             brick:hit()
-            if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
+            if self.ball.x + 2 < brick.x and self.ball.dx > 0 then -- links
                 self.ball.dx = -self.ball.dx
                 self.ball.x = brick.x - 8
-            elseif self.ball.x + 6 > brick.x + brick.width and self.ball.dx < 0 then
+            elseif self.ball.x + 6 > brick.x + brick.width and self.ball.dx < 0 then -- rechts
                 self.ball.dx = -self.ball.dx
                 self.ball.x = brick.x + 32
-            elseif self.ball.y < brick.y then
+                
+            elseif self.ball.y < brick.y then -- oben
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y - 8
-            else
+            else -- unten
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
             end
