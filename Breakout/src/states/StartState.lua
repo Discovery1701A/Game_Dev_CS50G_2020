@@ -6,22 +6,22 @@
 
     if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('down') then
         highlighted = highlighted == 1 and 2 or 1
-       -- gSounds['select']:play()
+        gSounds['select']:play()
     end
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
     end
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-       -- gSounds['confirm']:play()
+        gSounds['confirm']:play()
 
         if highlighted == 1 then
-            gStateMachine:change('serve', {
-                paddle = Paddle(),
-                bricks = LevelMaker.createMap(1),
-                health = 3,
-                score = 0,
-                highScores = self.highScores,
-                level = 1
+            --gStateMachine:change('serve', {
+               -- paddle = Paddle(),
+               -- bricks = LevelMaker.createMap(1),
+                --health = 3,
+                --score = 0,
+                --highScores = self.highScores,
+               -- level = 1
             })
         else
             love.event.quit()

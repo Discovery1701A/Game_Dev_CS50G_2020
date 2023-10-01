@@ -46,18 +46,13 @@ function GenerateQuadsPaddles(atlas)
             atlas:getDimensions())
         counter = counter + 1
 
-
-        x = x + 32
-    end
-
-    x = 0
-    y = 80
-
-    for i = 0, 3 do
-        quads[counter] = love.graphics.newQuad(x, y, 64, 16, atlas:getDimensions())
+        quads[counter] = love.graphics.newQuad(x, y + 16, 128, 16,
+            atlas:getDimensions())
         counter = counter + 1
-        x = x + 64
-    end
 
+
+        x = 0
+        y = y + 32
+    end
     return quads
 end
