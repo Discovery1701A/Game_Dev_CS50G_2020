@@ -6,7 +6,7 @@ function Paddle:init()
     -- y is placed a little above the bottom edge of the screen
     self.y = VIRTUAL_HEIGHT - 32
     -- start us off with no velocity
-    self.dx = 0
+    self.dx = 1
     self.skin = 1
     -- starting dimensions
     self.width = 64

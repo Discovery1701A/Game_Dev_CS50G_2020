@@ -15,7 +15,7 @@
         gSounds['confirm']:play()
 
         if highlighted == 1 then
-            --gStateMachine:change('serve', {
+            gStateMachine:change('play', {
                -- paddle = Paddle(),
                -- bricks = LevelMaker.createMap(1),
                 --health = 3,
@@ -23,8 +23,8 @@
                 --highScores = self.highScores,
                -- level = 1
             })
-        else
-            love.event.quit()
+       -- else
+           -- love.event.quit()
         end
     end
 end

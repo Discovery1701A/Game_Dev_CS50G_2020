@@ -7,7 +7,7 @@ require 'src/states/StartState'
 
 require 'src/Util'
 require 'src/states/PlayState'
-require 'Paddle'
+require 'src/Paddle'
 --require 'src/states/GameOverState'
 --require 'src/states/HighScoreState'
 --require 'src/states/EnterHighScoreState'

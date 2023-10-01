@@ -23,8 +23,8 @@ function love.load()
     }
 
     gFrames = {
-        ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
-        --['balls'] = GenerateQuadsBalls(gTextures['main']),
+        ['paddles'] = GenerateQuadsPaddles(gTextures['main'])
+        ['balls'] = GenerateQuadsBalls(gTextures['main']),
         --['bricks'] = GenerateQuadsBricks(gTextures['main']),
         --['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
         --['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24)
@@ -35,7 +35,7 @@ function love.load()
         vsync = true
     }) 
 
-    gSound = {
+    gSounds = {
         ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
         ['wall-hit'] = love.audio.newSource('sounds/wall_hit.wav', 'static'),
@@ -54,7 +54,7 @@ function love.load()
 
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
-        --['play'] = function() return PlayState() end,
+        ['play'] = function() return PlayState() end,
         --['serve'] = function() return ServeState() end,
         --['game-over'] = function() return GameOverState() end,
         --['high-score'] = function() return HighScoreState() end,
@@ -65,8 +65,8 @@ function love.load()
        -- highScores = loadHighScores()
     })
 
-    gSound['music']:play()
-    gSound['music']:setLooping(true)
+    gSounds['music']:play()
+    gSounds['music']:setLooping(true)
 
     love.keyboard.keysPressed = {}
 end
