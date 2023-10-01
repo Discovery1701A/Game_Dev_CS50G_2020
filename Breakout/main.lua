@@ -24,10 +24,10 @@ function love.load()
 
     gFrames = {
         ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
-        ['balls'] = GenerateQuadsBalls(gTextures['main'])
-        --['bricks'] = GenerateQuadsBricks(gTextures['main']),
-        --['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
-        --['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24)
+        ['balls'] = GenerateQuadsBalls(gTextures['main']),
+        ['bricks'] = GenerateQuadsBricks(gTextures['main']),
+        ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
+        ['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24)
     }
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
