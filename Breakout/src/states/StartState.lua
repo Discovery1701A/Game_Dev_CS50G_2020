@@ -15,11 +15,11 @@
         gSounds['confirm']:play()
 
         if highlighted == 1 then
-            gStateMachine:change('play', {
-               -- paddle = Paddle(),
-               -- bricks = LevelMaker.createMap(1),
-                --health = 3,
-                --score = 0,
+            gStateMachine:change('serve', {
+               paddle = Paddle(1),
+               bricks = LevelMaker.createMap(1),
+                health = 3,
+                score = 0,
                 --highScores = self.highScores,
                -- level = 1
             })
@@ -45,7 +45,7 @@ function StartState:render()
     if highlighted == 2 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.printf("QUIT", 0, VIRTUAL_HEIGHT / 2 + 90, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf("HIGHSCORES", 0, VIRTUAL_HEIGHT / 2 + 90, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setColor(1, 1, 1, 1)
 end
