@@ -66,6 +66,7 @@ function love.load()
     })
 
     gSounds['music']:play()
+    gSounds['music']:setVolume(0.1)
     gSounds['music']:setLooping(true)
 
     love.keyboard.keysPressed = {}

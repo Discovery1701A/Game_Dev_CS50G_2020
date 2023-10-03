@@ -26,12 +26,33 @@ function LevelMaker.createMap(level)
         local alternateTier2 = math.random(0, highestTier)
         local skipFlag = math.random(2) == 1 and true or false
         local alternateFlag = math.random(2) == 1 and true or false
+        local solidColor = math.random(1, highestColor)
+        local solidTier = math.random(0, highestTier)
+
         for x = 1, numCols do
+            if skipPattern and skipFlag then
+                skipFlag = not skipFlag
+                goto continue
+            else
+                skipFlag = not skipFlag
+            end
             b = Brick(
                 (x - 1) * 32 + 8 + (13 - numCols) * 16,
-                y * 16
+                y * 16,
+                solidColor,
+                solidTier
             )
             table.insert(bricks, b)
+            if alternatePattern and alternateFlag then
+                b.color = alternateColor1
+                b.tier = alternateTier1
+                alternateFlag = not alternateFlag
+            else
+                b.color = alternateColor2
+                b.tier = alternateTier2
+                alternateFlag = not alternateFlag
+            end
+            ::continue::
         end
     end
     return bricks
