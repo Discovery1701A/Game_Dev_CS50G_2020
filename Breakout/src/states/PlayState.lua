@@ -6,12 +6,14 @@ function PlayState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
+    self.highScores = params.highScores
     self.ball = params.ball
+    self.level = params.level
+
+    self.recoverPoints = 5000
+
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-50, -60)
-    self.level = params.level
-    self.highScores = params.highScores
-    --self.recoverPoints = params.recoverPoints
 end
 function PlayState:update(dt)
     if self.paused then
@@ -46,6 +48,16 @@ function PlayState:update(dt)
         if brick.inPlay and self.ball:collides(brick) then
             brick:hit()
             self.score = self.score + (brick.tier * 200 + brick.color * 25)
+            if self.score > self.recoverPoints then
+                -- can't go above 3 health
+                self.health = math.min(3, self.health + 1)
+
+                -- multiply recover points by 2
+                self.recoverPoints = math.min(100000, self.recoverPoints * 2)
+
+                -- play recover sound effect
+                gSounds['recover']:play()
+            end
             if self:checkVictory() then
                 gSounds['victory']:play()
                 gStateMachine:change('victory', {
@@ -55,7 +67,7 @@ function PlayState:update(dt)
                     score = self.score,
                     ball = self.ball,
                     highScores = self.highScores,
-                    --recoverPoints = self.recoverPoints
+                    recoverPoints = self.recoverPoints
                 })
             end
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then -- links
@@ -72,7 +84,10 @@ function PlayState:update(dt)
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
             end
-            self.ball.dy = self.ball.dy * 1.02
+            if math.abs(self.ball.dy) < 150 then
+                self.ball.dy = self.ball.dy * 1.02
+            end
+
             break
         end
     end
@@ -81,7 +96,9 @@ function PlayState:update(dt)
         self.health = self.health - 1
         if self.health == 0 then
             gStateMachine:change('game-over', {
-                score = self.score
+                score = self.score,
+                highScores = self.highScores
+            
             })
         else
             gStateMachine:change('serve', {
@@ -89,7 +106,9 @@ function PlayState:update(dt)
                 bricks = self.bricks,
                 health = self.health,
                 score = self.score,
-                level = self.level
+                highScores = self.highScores,
+                level = self.level,
+                recoverPoints = self.recoverPoints
             })
         end
     end

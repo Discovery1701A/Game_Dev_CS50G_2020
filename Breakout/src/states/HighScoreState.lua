@@ -6,7 +6,10 @@ end
 
 function HighScoreState:update(dt)
     if love.keyboard.wasPressed('escape') then
-        gStateMachine:change('start')
+        gSounds['wall-hit']:play()
+        gStateMachine:change('start', {
+            highScores = self.highScores
+        })
     end
 end
 

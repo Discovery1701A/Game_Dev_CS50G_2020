@@ -55,5 +55,9 @@ function LevelMaker.createMap(level)
             ::continue::
         end
     end
-    return bricks
+    if #bricks == 0 then
+        return self.createMap(level)
+    else
+        return bricks
+    end
 end

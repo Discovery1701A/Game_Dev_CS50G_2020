@@ -6,8 +6,8 @@ function VictoryState:enter(params)
     self.score = params.score
     self.ball = params.ball
     self.level = params.level
-    --self.highScores = params.highScores
-    --self.recoverPoints = params.recoverPoints
+    self.highScores = params.highScores
+    self.recoverPoints = params.recoverPoints
 end
 
 function VictoryState:update(dt)
@@ -22,7 +22,7 @@ function VictoryState:update(dt)
             ball = self.ball,
             highScores = self.highScores,
             level = self.level+1,
-            --recoverPoints = self.recoverPoints
+            recoverPoints = self.recoverPoints
         })
     end
     if love.keyboard.wasPressed('escape') then
