@@ -20,8 +20,8 @@
                bricks = LevelMaker.createMap(1),
                 health = 3,
                 score = 0,
-                --highScores = self.highScores,
-               -- level = 1
+                highScores = self.highScores,
+               level = 1
             })
        -- else
            -- love.event.quit()

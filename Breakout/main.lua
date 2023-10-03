@@ -57,12 +57,12 @@ function love.load()
         ['play'] = function() return PlayState() end,
         ['serve'] = function() return ServeState() end,
         ['game-over'] = function() return GameOverState() end,
-        --['high-score'] = function() return HighScoreState() end,
+        ['high-score'] = function() return HighScoreState() end,
         --['enter-high-score'] = function() return EnterHighScoreState() end
     }
 
     gStateMachine:change('start', {
-       -- highScores = loadHighScores()
+       highScores = loadHighScores()
     })
 
     gSounds['music']:play()
@@ -123,6 +123,39 @@ function displayFPS()
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
 end
 
+function loadHighScores()
+    love.filesystem.setIdentity('breakout')
+    if not love.filesystem.getInfo('breakout.lst') then
+        local scores = ''
+        for i = 10, 1, -1 do
+            scores = scores .. 'CTO\n'
+            scores = scores .. tostring(i * 1000) .. '\n'
+        end
+        love.filesystem.write('breakout.lst', scores)
+    end
+
+    local name = true
+    local currentName = nil
+    local counter = 1
+
+    local scores = {}
+    for i = 1, 10 do
+        scores[i] = {
+            name = nil,
+            score = nil
+        }
+    end
+    for line in love.filesystem.lines('breakout.lst') do
+        if name then
+            scores[counter].name = string.sub(line, 1, 3)
+        else
+            scores[counter].score = tonumber(line)
+            counter = counter + 1
+        end
+        name = not name
+    end
+    return scores
+end
 
 
 

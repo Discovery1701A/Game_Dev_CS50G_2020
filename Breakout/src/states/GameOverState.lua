@@ -2,14 +2,14 @@ GameOverState = Class{__includes = BaseState}
 
 function GameOverState:enter(params)
     self.score = params.score
-   -- self.highScores = params.highScores
+    self.highScores = params.highScores
    -- self.scoreIndex = params.scoreIndex
 end
 
 function GameOverState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         gStateMachine:change('start', {
-           -- highScores = self.highScores
+           highScores = self.highScores
         })
     end
     if love.keyboard.wasPressed('escape') then
