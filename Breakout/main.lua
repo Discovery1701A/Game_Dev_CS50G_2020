@@ -21,7 +21,6 @@ function love.load()
         ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
         ['particle'] = love.graphics.newImage('graphics/particle.png')
     }
-
     gFrames = {
         ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
         ['balls'] = GenerateQuadsBalls(gTextures['main']),
